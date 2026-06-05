@@ -7,7 +7,19 @@
     <link rel="stylesheet" href="themes.css">
 </head>
 <body>
-    <div id="app"></div>
+    <div class="tablet">
+        <h1>🚔 COPNET V2 – NRW Polizei Tablet</h1>
+        <p>Website erfolgreich geladen.</p>
+
+        <select id="themeSelector" onchange="changeTheme(this.value)">
+            <option value="theme-nrw">NRW Polizei</option>
+            <option value="theme-glass">iPad Glass</option>
+            <option value="theme-material">Material</option>
+            <option value="theme-windows">Windows 10</option>
+            <option value="theme-cyber">Cyber Police</option>
+        </select>
+    </div>
+
     <script src="app.js"></script>
 </body>
 </html>
