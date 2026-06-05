@@ -12,16 +12,17 @@ body {
 .tablet {
     width: 1100px;
     height: 650px;
-    background: var(--card);
+    background: rgba(0,0,0,0.35);
     border-radius: 25px;
     box-shadow: 0 25px 60px rgba(0,0,0,0.6);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    backdrop-filter: blur(12px);
 }
 
 .topbar {
-    background: rgba(0,0,0,0.25);
+    background: rgba(0,0,0,0.35);
     padding: 15px;
     display: flex;
     justify-content: space-between;
@@ -30,7 +31,7 @@ body {
 
 .tabs {
     display: flex;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.25);
 }
 
 .tabs button {
@@ -42,15 +43,35 @@ body {
     cursor: pointer;
 }
 
+.tabs button:hover {
+    background: rgba(255,255,255,0.12);
+}
+
 .content {
     padding: 20px;
     overflow-y: auto;
 }
 
 .card {
-    background: var(--card);
+    background: rgba(0,0,0,0.35);
     padding: 15px;
     border-radius: 15px;
     margin-bottom: 15px;
-    border-left: 4px solid var(--accent);
+    border-left: 4px solid #4da3ff;
+}
+
+input, select, button {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    background: #4da3ff;
+    color: white;
+    cursor: pointer;
 }
