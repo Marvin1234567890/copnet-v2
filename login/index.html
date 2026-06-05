@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>COPNET Login</title>
+<style>
+body {
+    margin: 0;
+    background: #0a1a2a;
+    color: white;
+    font-family: system-ui;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-box {
+    background: #10263d;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    width: 350px;
+}
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: none;
+}
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border-radius: 10px;
+    border: none;
+    background: #4da3ff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="login-box">
+    <h2>🔐 COPNET Login</h2>
+    <input id="pin" type="password" placeholder="PIN eingeben">
+    <button onclick="login()">Login</button>
+</div>
+
+<script>
+function login() {
+    const pin = document.getElementById("pin").value;
+    if (pin === "1234") {
+        window.location.href = "../index.html";
+    } else {
+        alert("Falsche PIN");
+    }
+}
+</script>
+</body>
+</html>
