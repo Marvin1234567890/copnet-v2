@@ -1,0 +1,8 @@
+.my.cnf*
+.mysql*
+.my.output*
+node_modules/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+#tablet {
+    width: 900px;
+    height: 550px;
+    background: #0a1a2a;
+    color: white;
+    border-radius: 20px;
+    padding: 20px;
+}
