@@ -1,1 +1,1 @@
-# copnet-v2
+# copnet-v1
