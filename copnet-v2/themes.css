@@ -1,0 +1,40 @@
+/* NRW Polizei */
+.theme-nrw {
+    --bg: #0a1a2a;
+    --card: #10263d;
+    --accent: #4da3ff;
+    --text: #ffffff;
+}
+
+/* iPad Glass */
+.theme-glass {
+    --bg: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%);
+    --card: rgba(255,255,255,0.35);
+    --accent: #007aff;
+    --text: #000000;
+    backdrop-filter: blur(20px);
+}
+
+/* Material Design */
+.theme-material {
+    --bg: #f2f2f2;
+    --card: #ffffff;
+    --accent: #6200ee;
+    --text: #111111;
+}
+
+/* Windows 10 Polizei */
+.theme-windows {
+    --bg: #1f1f1f;
+    --card: #2d2d2d;
+    --accent: #0078d4;
+    --text: #ffffff;
+}
+
+/* Cyber Police */
+.theme-cyber {
+    --bg: radial-gradient(circle at top, #0ff 0%, #02040a 60%);
+    --card: #050814;
+    --accent: #00eaff;
+    --text: #e0faff;
+}

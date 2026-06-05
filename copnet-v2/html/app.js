@@ -1,6 +1,4 @@
 let currentTab = "persons";
-let currentDispatchDetail = null;
-let currentWantedDetail = null;
 
 const demo = {
     persons: [
@@ -34,7 +32,6 @@ const demo = {
     ],
     dispatch: [
         {
-            id: 1,
             caller: "Anwohner",
             location: "Köln Innenstadt",
             description: "Ruhestörung im Hinterhof",
@@ -64,30 +61,28 @@ const demo = {
             rank: "Polizeihauptkommissar",
             dienststelle: "Polizei Köln"
         }
-    ],
-    dienststellen: [
-        "Polizei Köln",
-        "Polizei Essen",
-        "Polizei Dortmund",
-        "Polizei Düsseldorf",
-        "Polizei Bochum",
-        "Polizei Gelsenkirchen",
-        "Polizei Münster"
     ]
 };
 
-window.addEventListener("load", () => {
-    renderTab();
-});
+function changeTheme(theme) {
+    document.body.className = theme;
+    localStorage.setItem("copnet_theme", theme);
+}
 
 function toggleMode() {
     document.body.classList.toggle("light");
 }
 
+window.addEventListener("load", () => {
+    const saved = localStorage.getItem("copnet_theme") || "theme-nrw";
+    document.body.className = saved;
+    const sel = document.getElementById("themeSelector");
+    if (sel) sel.value = saved;
+    renderTab();
+});
+
 function setTab(tab) {
     currentTab = tab;
-    currentDispatchDetail = null;
-    currentWantedDetail = null;
     renderTab();
 }
 
@@ -109,20 +104,16 @@ function renderTab() {
         `,
         wanted: `
             <h2>📛 Fahndung</h2>
-
             <div class="card">
                 <div class="card-title">📄 Neuen Wanted-Eintrag erstellen</div>
-
                 <div class="card-row">
                     <b>Person:</b><br>
                     <input id="wanted_person" placeholder="Name eingeben...">
                 </div>
-
                 <div class="card-row">
                     <b>Grund:</b><br>
                     <input id="wanted_reason" placeholder="Straftat / Grund...">
                 </div>
-
                 <div class="card-row">
                     <b>Level:</b><br>
                     <select id="wanted_level">
@@ -131,17 +122,14 @@ function renderTab() {
                         <option value="hoch">Hoch</option>
                     </select>
                 </div>
-
                 <button onclick="addWanted()">Eintrag erstellen</button>
             </div>
-
             <h3 style="margin-top:20px;">📋 Bestehende Fahndungen</h3>
             <div id="results"></div>
         `,
         dispatch: `
             <h2>📞 Einsätze</h2>
             <div id="results"></div>
-            <div id="detail"></div>
         `,
         duty: `<h2>🛡 Dienst</h2><div id="results"></div>`,
         internal: `<h2>📂 Interne Ermittlungen</h2><div id="results"></div>`,
@@ -153,7 +141,9 @@ function renderTab() {
 }
 
 function searchData() {
-    const query = document.getElementById("searchInput").value.toLowerCase();
+    const input = document.getElementById("searchInput");
+    if (!input) return;
+    const query = input.value.toLowerCase();
     const filtered = demo[currentTab].filter(item =>
         JSON.stringify(item).toLowerCase().includes(query)
     );
@@ -177,40 +167,13 @@ function addWanted() {
     renderTab();
 }
 
-function openDispatchDetail(item) {
-    currentDispatchDetail = item;
-    const d = document.getElementById("detail");
-    if (!d) return;
-
-    const priorityBadge = {
-        niedrig: "badge-info",
-        mittel: "badge-warn",
-        hoch: "badge-danger"
-    }[item.priority] || "badge-info";
-
-    d.innerHTML = `
-        <div class="card" style="margin-top:15px;">
-            <div class="card-title">📍 Einsatzdetails</div>
-            <div class="card-row"><b>Ort:</b> ${item.location}</div>
-            <div class="card-row"><b>Priorität:</b> <span class="badge ${priorityBadge}">${item.priority.toUpperCase()}</span></div>
-            <div class="card-row"><b>Koordinaten:</b> ${item.coords}</div>
-            <div class="card-row"><b>Beschreibung:</b> ${item.description}</div>
-        </div>
-    `;
-}
-
-function openWantedDetail(item) {
-    currentWantedDetail = item;
-    alert(`Wanted-Detail (Demo): ${item.person} – Aktenzeichen: ${item.aktenzeichen}`);
-}
-
 function renderResults(data) {
     const r = document.getElementById("results");
     if (!r) return;
     r.innerHTML = "";
 
     if (!data || data.length === 0) {
-        r.innerHTML = `<div class="result">Keine Daten gefunden.</div>`;
+        r.innerHTML = `<div class="card">Keine Daten gefunden.</div>`;
         return;
     }
 
@@ -248,7 +211,7 @@ function renderResults(data) {
             }[item.level] || "badge-info";
 
             html = `
-                <div class="card" onclick='openWantedDetail(${JSON.stringify(item).replace(/'/g, "\\'")})'>
+                <div class="card">
                     <div class="card-title">📛 ${item.person}</div>
                     <div class="card-row"><b>Grund:</b> ${item.reason}</div>
                     <div class="card-row"><b>Aktenzeichen:</b> ${item.aktenzeichen}</div>
@@ -270,10 +233,12 @@ function renderResults(data) {
             };
 
             html = `
-                <div class="card" onclick='openDispatchDetail(${JSON.stringify(item).replace(/'/g, "\\'")})'>
+                <div class="card">
                     <div class="card-title">${icons[item.type] || "📞"} ${item.location}</div>
                     <div class="card-row"><b>Anrufer:</b> ${item.caller}</div>
                     <div class="card-row"><b>Beschreibung:</b> ${item.description}</div>
+                    <div class="card-row"><b>Priorität:</b> ${item.priority}</div>
+                    <div class="card-row"><b>Koordinaten:</b> ${item.coords}</div>
                 </div>
             `;
         }
@@ -311,13 +276,5 @@ function renderResults(data) {
 
         r.innerHTML += html;
     });
-}
-
-function closeNUI() {
-    const c = document.getElementById("copnet");
-    c.classList.add("closing");
-    setTimeout(() => {
-        c.style.display = "none";
-    }, 250);
 }
 
