@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COPNET V2 – Landespolizei NRW</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>COPNET V2 – Landespolizei NRW</h1>
+
+        <div class="tabs">
+            <button onclick="setTab('persons')">Personen</button>
+            <button onclick="setTab('vehicles')">Fahrzeuge</button>
+            <button onclick="setTab('wanted')">Wanted</button>
+            <button onclick="setTab('dispatch')">Leitstelle</button>
+        </div>
+
+        <div id="content"></div>
+    </div>
+
+    <script>
+        window.IS_WEBSITE = true;
+    </script>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
