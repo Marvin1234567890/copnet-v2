@@ -8,16 +8,30 @@
 </head>
 <body>
 <div class="tablet">
-    <h1>🚔 COPNET V2 – NRW Polizei Tablet</h1>
-    <p>System erfolgreich geladen.</p>
 
-    <select id="themeSelector" onchange="changeTheme(this.value)">
-        <option value="theme-nrw">NRW Polizei</option>
-        <option value="theme-glass">iPad Glass</option>
-        <option value="theme-material">Material</option>
-        <option value="theme-windows">Windows 10</option>
-        <option value="theme-cyber">Cyber Police</option>
-    </select>
+    <div class="topbar">
+        <span class="logo">🚔 COPNET V2</span>
+        <select id="themeSelector" onchange="changeTheme(this.value)">
+            <option value="theme-nrw">NRW Polizei</option>
+            <option value="theme-glass">iPad Glass</option>
+            <option value="theme-material">Material</option>
+            <option value="theme-windows">Windows 10</option>
+            <option value="theme-cyber">Cyber Police</option>
+        </select>
+    </div>
+
+    <div class="tabs">
+        <button onclick="setTab(\"persons\")">👤 Personen</button>
+        <button onclick="setTab(\"vehicles\")">🚗 Fahrzeuge</button>
+        <button onclick="setTab(\"wanted\")">📛 Fahndung</button>
+        <button onclick="setTab(\"dispatch\")">📞 Einsätze</button>
+        <button onclick="setTab(\"duty\")">🛡 Dienst</button>
+        <button onclick="setTab(\"internal\")">📂 Intern</button>
+        <button onclick="setTab(\"admin\")">⚙ Admin</button>
+    </div>
+
+    <div id="content" class="content"></div>
+
 </div>
 
 <script src="app.js"></script>
